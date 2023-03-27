@@ -125,30 +125,30 @@ Putting all of this together, we can make a `WebServer` module. The `WebServer` 
 Start the `WebServer` socket below by executing the code cell, then navigate to http://localhost:4000 in a new tab in your browser. You should see a message from the web server with the current time.
 
 ```elixir
-defmodule WebServer do
-  def start(port) do
-    {:ok, listen_socket} = :gen_tcp.listen(port, active: false, reuseaddr: true)
+# defmodule WebServer do
+#   def start(port) do
+#     {:ok, listen_socket} = :gen_tcp.listen(port, active: false, reuseaddr: true)
 
-    accept(listen_socket)
-  end
+#     accept(listen_socket)
+#   end
 
-  def accept(listen_socket) do
-    # accept connection
-    {:ok, connection} = :gen_tcp.accept(listen_socket)
+#   def accept(listen_socket) do
+#     # accept connection
+#     {:ok, connection} = :gen_tcp.accept(listen_socket)
 
-    # send response
-    current_time = Time.to_string(Time.utc_now())
-    response = "HTTP/1.1 200\r\nContent-Type: text/html\r\n\r\n It is #{current_time}"
-    :gen_tcp.send(connection, response)
+#     # send response
+#     current_time = Time.to_string(Time.utc_now())
+#     response = "HTTP/1.1 200\r\nContent-Type: text/html\r\n\r\n <h1>It is #{current_time}<h1/>"
+#     :gen_tcp.send(connection, response)
 
-    # close connection
-    :gen_tcp.close(connection)
+#     # close connection
+#     :gen_tcp.close(connection)
 
-    accept(listen_socket)
-  end
-end
+#     accept(listen_socket)
+#   end
+# end
 
-WebServer.start(4000)
+# WebServer.start(4000)
 ```
 
 This server will remain open indefinitely and recursively call `accept/2` every time a new client connects to the socket on port `4000`.
