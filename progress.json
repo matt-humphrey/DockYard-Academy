@@ -37,7 +37,7 @@
   "mix_reading": true,
   "meta_math_exercise": true,
   "common_components_exercise": false,
-  "phoenix_1.6_reading": true,
+  "phoenix_1.6_reading": false,
   "streams_reading": false,
   "home_page_exercise": false,
   "pascals_triangle_exercise": false,
