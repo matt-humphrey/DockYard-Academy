@@ -133,7 +133,7 @@ the allowable types, see the [Primitive Types](https://hexdocs.pm/ecto/Ecto.Sche
 
 ```elixir
 initial_data = %{}
-params = %{name: "Peter", age: 22}
+params = %{name: "Peter", surname: "Parker", age: 22}
 types = %{name: :string, age: :integer}
 keys = [:name, :age]
 
@@ -173,7 +173,7 @@ The changeset will store the errors as a keyword list, and `valid?` will be fals
 are invalid.
 
 ```elixir
-invalid_params = %{name: 2, age: "hello"}
+invalid_params = %{name: "hello", age: "hello"}
 invalid_changeset = Ecto.Changeset.cast({initial_data, types}, invalid_params, keys)
 ```
 
@@ -289,7 +289,16 @@ keys = [:title, :content]
 </details>
 
 ```elixir
+initial_data = %{}
 
+params = %{title: "Harry Potter", content: "broomstick"}
+types = %{title: :string, content: :string}
+keys = [:title, :content]
+
+valid_changeset =
+  Ecto.Changeset.cast({initial_data, types}, params, keys)
+  |> Ecto.Changeset.validate_required([:title, :content])
+  |> Ecto.Changeset.validate_length(:title, min: 3, max: 100)
 ```
 
 ## Schemaless Changesets
@@ -385,7 +394,39 @@ end
 </details>
 
 ```elixir
+defmodule Book do
+  defstruct [:title, :content]
 
+  @types %{
+    title: :string,
+    content: :string,
+    author: :string,
+    is_licenced: :boolean,
+    is_published: :boolean
+  }
+
+  def changeset(%Book{} = book, params) do
+    {book, @types}
+    |> Ecto.Changeset.cast(params, Map.keys(@types))
+    |> Ecto.Changeset.validate_required([:title, :content])
+    |> Ecto.Changeset.validate_length(:title, min: 3, max: 100)
+    |> Ecto.Changeset.validate_acceptance(:is_licenced)
+  end
+
+  def new(params) do
+    %Book{}
+    |> changeset(params)
+    |> Ecto.Changeset.apply_action(:update)
+  end
+end
+
+Book.new(%{
+  title: "title",
+  content: "content",
+  author: "Matt Humphrey",
+  is_licenced: true,
+  is_published: false
+})
 ```
 
 ## Commit Your Progress
