@@ -247,7 +247,8 @@ Ecto.Changeset.apply_action(valid_changeset, :update)
 If the changes are not valid, we will receive an error and the changeset.
 
 ```elixir
-Ecto.Changeset.apply_action(invalid_changeset, :update)
+{:error, error} = Ecto.Changeset.apply_action(invalid_changeset, :update)
+error.errors
 ```
 
 It's common to use this pattern to create validated data or handle the error.
