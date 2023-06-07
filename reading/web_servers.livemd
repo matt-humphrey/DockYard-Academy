@@ -6,9 +6,10 @@ Mix.install([
   {:kino, "~> 0.9", override: true},
   {:youtube, github: "brooklinjazz/youtube"},
   {:hidden_cell, github: "brooklinjazz/hidden_cell"},
-  {:httpoison, "~> 2.1.0"},
-  {:poison, "~> 5.0.0"}
+  {:finch, "~> 0.16.0"}
 ])
+
+Finch.start_link(name: MyApp.Finch)
 ```
 
 ## Navigation
@@ -27,7 +28,7 @@ Mix.install([
 <a style="display: flex; color: #61758a; margin-left: 1rem;" href="../reading/phoenix_1.7.livemd">Phoenix 1.7</a>
 </div>
 <div style="display: flex;">
-<a style="display: flex; color: #61758a; margin-right: 1rem;" href="../exercises/phoenix_drills.livemd">Phoenix Drills</a>
+<a style="display: flex; color: #61758a; margin-right: 1rem;" href="../exercises/phoenix_follow_along_counter_app.livemd">Follow Along: Phoenix Counter App</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>
@@ -97,7 +98,7 @@ C--> S: close connection
 
 <!-- livebook:{"break_markdown":true} -->
 
-Below, we simulate a web server that accepts only a single request, and returns `"Hello, world!"` to the client. We then send the web server a [HTTPoison.get!/3](https://hexdocs.pm/httpoison/HTTPoison.html#get!/3) request and receive a response from the server.
+Below, we simulate a web server that accepts only a single request, and returns `"Hello, world!"` to the client. We then send the web server a request and receive a response.
 
 ```elixir
 port = 4000
@@ -126,7 +127,7 @@ spawn(fn ->
 end)
 
 # Send Request
-HTTPoison.get!("http://localhost:#{port}")
+Finch.build(:get, "http://localhost:#{port}") |> Finch.request!(MyApp.Finch)
 ```
 
 The code above is purely for demonstration purposes. We won't need to write our own webserver, instead we'll rely on frameworks like [Phoenix](https://www.phoenixframework.org/) that do all of this for us.
@@ -228,7 +229,7 @@ We will accept applications for the June-August 2023 cohort soon.
 <a style="display: flex; color: #61758a; margin-left: 1rem;" href="../reading/phoenix_1.7.livemd">Phoenix 1.7</a>
 </div>
 <div style="display: flex;">
-<a style="display: flex; color: #61758a; margin-right: 1rem;" href="../exercises/phoenix_drills.livemd">Phoenix Drills</a>
+<a style="display: flex; color: #61758a; margin-right: 1rem;" href="../exercises/phoenix_follow_along_counter_app.livemd">Follow Along: Phoenix Counter App</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>

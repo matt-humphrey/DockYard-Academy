@@ -82,27 +82,35 @@ defmodule Utils.NotebooksTest do
       `ExUnit.run/1`
       `Phoenix.Flash.get_flash/2`
       `Phoenix.HTML.Form.checkbox/3`
+      `GenServer`
+      `Credo`
+      `Dialyzer`
+      `Ignore`
+      `Ignore This`
       """
     }
 
-    assert Notebooks.link_to_docs(notebook) == %Notebook{
-             content: """
-             [ExUnit](https://hexdocs.pm/ex_unit/ExUnit.html)
-             [Kino](https://hexdocs.pm/kino/Kino.html)
-             [Benchee](https://hexdocs.pm/benchee/Benchee.html)
-             [IEx](https://hexdocs.pm/iex/IEx.html)
-             [Mix](https://hexdocs.pm/mix/Mix.html)
-             [Poison](https://hexdocs.pm/poison/Poison.html)
-             [HTTPoison](https://hexdocs.pm/httpoison/HTTPoison.html)
-             [Finch](https://hexdocs.pm/finch/Finch.html)
-             [Timex](https://hexdocs.pm/timex/Timex.html)
-             [Ecto](https://hexdocs.pm/ecto/Ecto.html)
-             [Phoenix](https://hexdocs.pm/phoenix/Phoenix.html)
-             [ExUnit.run/1](https://hexdocs.pm/ex_unit/ExUnit.html#run/1)
-             [Phoenix.Flash.get_flash/2](https://hexdocs.pm/phoenix/Phoenix.Flash.html#get_flash/2)
-             [Phoenix.HTML.Form.checkbox/3](https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html#checkbox/3)
-             """
-           }
+    assert Notebooks.link_to_docs(notebook).content == """
+           [ExUnit](https://hexdocs.pm/ex_unit/ExUnit.html)
+           [Kino](https://hexdocs.pm/kino/Kino.html)
+           [Benchee](https://hexdocs.pm/benchee/Benchee.html)
+           [IEx](https://hexdocs.pm/iex/IEx.html)
+           [Mix](https://hexdocs.pm/mix/Mix.html)
+           [Poison](https://hexdocs.pm/poison/Poison.html)
+           [HTTPoison](https://hexdocs.pm/httpoison/HTTPoison.html)
+           [Finch](https://hexdocs.pm/finch/Finch.html)
+           [Timex](https://hexdocs.pm/timex/Timex.html)
+           [Ecto](https://hexdocs.pm/ecto/Ecto.html)
+           [Phoenix](https://hexdocs.pm/phoenix/Phoenix.html)
+           [ExUnit.run/1](https://hexdocs.pm/ex_unit/ExUnit.html#run/1)
+           [Phoenix.Flash.get_flash/2](https://hexdocs.pm/phoenix/Phoenix.Flash.html#get_flash/2)
+           [Phoenix.HTML.Form.checkbox/3](https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html#checkbox/3)
+           [GenServer](https://hexdocs.pm/elixir/GenServer.html)
+           [Credo](https://hexdocs.pm/credo/Credo.html)
+           [Dialyzer](https://hexdocs.pm/dialyxir/readme.html)
+           `Ignore`
+           `Ignore This`
+           """
   end
 
   test "load!/1 loads the notebook content" do
@@ -265,7 +273,7 @@ defmodule Utils.NotebooksTest do
                {:benchee, "~> 1.1"},
                {:poison, "~> 5.0.0"},
                {:httpoison, "~> 2.1.0"},
-               {:finch, "~> 0.15.0"},
+               {:finch, "~> 0.16.0"},
                {:timex, "~> 3.7.11"},
                {:ecto, "~> 3.9.5"},
                {:faker, "~> 0.17.0"},
